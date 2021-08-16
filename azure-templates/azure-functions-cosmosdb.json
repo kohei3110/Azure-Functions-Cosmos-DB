@@ -4,21 +4,18 @@
     "parameters": {
         "storageAccountsName": {
             "type": "string",
-            "defaultValue": "straccazstudy00",
             "metadata": {
                 "description": "ストレージアカウント名（グローバルで一意である必要がある）"
             }
         },
         "appName": {
             "type": "string",
-            "defaultValue": "Application-AzureStudy-demo-japaneast-001",
             "metadata": {
                 "description": "アプリケーション名"
             }
         },
         "databaseAccountsName": {
             "type": "string",
-            "defaultValue": "cosmosdb-azurestudy-demo-japaneast-001",
             "metadata": {
                 "description": "データベースアカウント名"
             }
