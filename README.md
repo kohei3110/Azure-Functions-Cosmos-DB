@@ -5,7 +5,7 @@ This content was created for Azure Study #5 demo.
 Table of Contents
 =================
 
-- [Azure Cosmos DB Trigger Function in Java] (https://github.com/kohei3110/Azure-Functions-Cosmos-DB#azure-cosmos-db-trigger-function-in-java)
+- [Azure Cosmos DB Trigger Function in Java](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#azure-cosmos-db-trigger-function-in-java)
 - [Table of Contents](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#table-of-contents)
 - [Architecture](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#architecture)
 - [Getting Started](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#getting-started)
@@ -26,13 +26,13 @@ Architecture
 
 - Microsoft Azure Subscription
 - java 8 or higher
-- Cosmos DB Emulator ([here](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=ssl-netstd21) is how to install)
-- Storage Emulator ([here](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=visual-studio) is how to install)
+- Cosmos DB Emulator ([How to install](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=ssl-netstd21))
+- Storage Emulator ([How to install](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=visual-studio))
 - `az` command
 
 #### Optional
 
-- Visual Studio Code ([here](https://code.visualstudio.com/download) is how to install)
+- Visual Studio Code ([How to install](https://code.visualstudio.com/download))
 
 ### 2. Develop functions locally
 
