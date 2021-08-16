@@ -1,0 +1,201 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountsName": {
+            "type": "string",
+            "metadata": {
+                "description": "ストレージアカウント名（グローバルで一意である必要がある）"
+            }
+        },
+        "appName": {
+            "type": "string",
+            "metadata": {
+                "description": "アプリケーション名"
+            }
+        },
+        "databaseAccountsName": {
+            "type": "string",
+            "metadata": {
+                "description": "データベースアカウント名"
+            }
+        }
+    },
+    "variables": {
+        "hostingPlanName": "[parameters('appName')]",
+        "functionAppName": "[parameters('appName')]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2021-04-01",
+            "name": "[parameters('storageAccountsName')]",
+            "location": "[resourceGroup().location]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "Standard_LRS"
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2020-12-01",
+            "name": "[variables('hostingPlanName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "reserved": false
+            },
+            "sku": {
+                "name": "S1",
+                "tier": "Dynamic"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2020-12-01",
+            "name": "[variables('functionAppName')]",
+            "location": "[resourceGroup().location]",
+            "kind": "functionapp",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts',parameters('storageAccountsName'))]",
+                "[resourceId('Microsoft.Web/serverfarms',variables('hostingPlanName'))]"
+            ],
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms',variables('hostingPlanName'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "java"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('Microsoft.Insights/components','ApplicationInsights-AzureStudy-demo-japaneast-001')).InstrumentationKey]"
+                        },
+                        {
+                            "name": "AzureWebJobsStorage",
+                            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccountsName'), ';EndpointSuffix=', environment().suffixes.storage, ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts',parameters('storageAccountsName')), '2019-06-01').keys[0].value)]"
+                        },
+                        {
+                            "name": "AzureCosmosDBConnection",
+                            "value": "[concat('AccountEndpoint=https://', parameters('databaseAccountsName'), '.documents.azure.com:443/',';AccountKey=', listKeys(resourceId('Microsoft.DocumentDB/databaseAccounts',parameters('databaseAccountsName')), '2021-06-15').primaryMasterKey)]"
+                        }
+                    ],
+                    "keyVaultReferenceIdentity": "SystemAssigned",
+                    "javaVersion": "11"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Insights/components",
+            "apiVersion": "2020-02-02",
+            "name": "ApplicationInsights-AzureStudy-demo-japaneast-001",
+            "location": "[resourceGroup().location]",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "DisableIpMasking": false
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts",
+            "apiVersion": "2021-05-15",
+            "name": "[parameters('databaseAccountsName')]",
+            "location": "[resourceGroup().location]",
+            "kind": "GlobalDocumentDB",
+            "properties": {
+                "publicNetworkAccess": "Enabled",
+                "enableAutomaticFailover": false,
+                "enableMultipleWriteLocations": false,
+                "isVirtualNetworkFilterEnabled": false,
+                "analyticalStorageConfiguration": {
+                    "schemaType": "WellDefined"
+                },
+                "databaseAccountOfferType": "Standard",
+                "consistencyPolicy": {
+                    "defaultConsistencyLevel": "Session",
+                    "maxIntervalInSeconds": 5,
+                    "maxStalenessPrefix": 100
+                },
+                "locations": [
+                    {
+                        "locationName": "[resourceGroup().location]",
+                        "provisioningState": "Succeeded",
+                        "failoverPriority": 0,
+                        "isZoneRedundant": false
+                    }
+                ],
+                "backupPolicy": {
+                    "type": "Periodic",
+                    "periodicModeProperties": {
+                        "backupIntervalInMinutes": 1440,
+                        "backupRetentionIntervalInHours": 48
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(parameters('databaseAccountsName'), '/SampleDB')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts',parameters('databaseAccountsName'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "SampleDB"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.DocumentDB/databaseAccounts/sqlDatabases/containers",
+            "apiVersion": "2021-05-15",
+            "name": "[concat(parameters('databaseAccountsName'), '/SampleDB/Persons')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/sqlDatabases', parameters('databaseAccountsName'), 'SampleDB')]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccountsName'))]"
+            ],
+            "properties": {
+                "resource": {
+                    "id": "Persons",
+                    "indexingPolicy": {
+                        "indexingMode": "consistent",
+                        "automatic": true,
+                        "includedPaths": [
+                            {
+                                "path": "/*"
+                            }
+                        ],
+                        "excludedPaths": [
+                            {
+                                "path": "/\"_etag\"/?"
+                            }
+                        ]
+                    },
+                    "partitionKey": {
+                        "paths": [
+                            "/firstname"
+                        ],
+                        "kind": "Hash"
+                    },
+                    "conflictResolutionPolicy": {
+                        "mode": "LastWriterWins",
+                        "conflictResolutionPath": "/_ts"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "principalId": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Web/sites',variables('functionAppName')), '2020-12-01', 'Full').identity.principalId]"
+        }
+    }
+}

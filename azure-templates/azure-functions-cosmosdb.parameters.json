@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccountsName": {
+            "value": "straccazstudy00"
+        },
+        "appName": {
+            "value": "Application-AzureStudy-demo-japaneast-001"
+        },
+        "databaseAccountsName":{
+            "value": "cosmosdb-azurestudy-demo-japaneast-001"
+        }
+    }
+}
