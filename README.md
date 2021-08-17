@@ -55,7 +55,7 @@ Create `local.settings.json` and edit it like below.
 
 ### 3. Create Azure resources
 
-Just click [Deploy to Azure] button in `azure-templates/README.md`.
+Just click ![Deploy to Azure](https://aka.ms/deploytoazurebutton) button in `azure-templates/README.md`.
 
 ### 4. Add a sample data and Check the Log stream
 
