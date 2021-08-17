@@ -5,15 +5,15 @@ This content was created for Azure Study #5 demo.
 Table of Contents
 =================
 
-- [Azure Cosmos DB Trigger Function in Java](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#azure-cosmos-db-trigger-function-in-java)
-- [Table of Contents](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#table-of-contents)
-- [Architecture](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#architecture)
-- [Getting Started](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#getting-started)
-    - [1. Prerequisites](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#1-prerequisites)
-        - [Optional](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#optional)
-    - [2. Develop functions locally](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#2-develop-functions-locally)
-    - [3. Create Azure resources](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#3-create-azure-resources)
-    - [4. Add a sample data and Check the Log stream](https://github.com/kohei3110/Azure-Functions-Cosmos-DB#4-add-a-sample-data-and-check-the-log-stream)
+- [Azure Cosmos DB Trigger Function in Java](#azure-cosmos-db-trigger-function-in-java)
+- [Table of Contents](#table-of-contents)
+- [Architecture](#architecture)
+  * [Getting Started](#getting-started)
+    + [1. Prerequisites](#1-prerequisites)
+      - [Optional](#optional)
+    + [2. Develop functions locally](#2-develop-functions-locally)
+    + [3. Create Azure resources](#3-create-azure-resources)
+    + [4. Add a sample data and Check the Log stream](#4-add-a-sample-data-and-check-the-log-stream)
 
 Architecture
 =================
