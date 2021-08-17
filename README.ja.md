@@ -52,7 +52,7 @@ Cosmos DB Emulator と Storage Emulator を起動してください。
 
 ### 3. Azure リソースの作成
 
-`azure-templates/README.md` にある [Deploy to Azure] ボタンをクリックし、Azure にリソースを作成します。
+`azure-templates/README.md` にある ![Deploy to Azure](https://aka.ms/deploytoazurebutton) ボタンをクリックし、Azure にリソースを作成します。
 
 ### 4. サンプルデータを追加し、ログストリームを確認します。
 
