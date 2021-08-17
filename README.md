@@ -28,10 +28,10 @@ Architecture
 - java 8 or higher
 - Cosmos DB Emulator ([How to install](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=ssl-netstd21))
 - Storage Emulator ([How to install](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azurite?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=visual-studio))
-- `az` command
 
 #### Optional
 
+- `az` command
 - Visual Studio Code ([How to install](https://code.visualstudio.com/download))
 
 ### 2. Develop functions locally
