@@ -36,6 +36,13 @@ Architecture
 
 ### 2. Develop functions locally
 
+Clone this repositry.
+
+```
+git clone https://github.com/kohei3110/Azure-Functions-Cosmos-DB.git
+cd Azure-Functions-Cosmos-DB
+```
+
 Start Cosmos DB Emulator and Storage Emulator.
 
 Create `local.settings.json` and edit it like below.
