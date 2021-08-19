@@ -7,7 +7,7 @@
 			"problemMatcher": "$func-java-watch",
 			"isBackground": true,
 			"options": {
-				"cwd": "${workspaceFolder}/target/azure-functions/CosmosDBFunctions-1629101003896"
+				"cwd": "${workspaceFolder}/target/azure-functions/Application-AzureStudy-demo-japaneast-002"
 			},
 			"dependsOn": "package (functions)"
 		},
